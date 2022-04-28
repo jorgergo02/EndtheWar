@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpikeScript : MonoBehaviour
+public class BossTankBody : MonoBehaviour
 {
-
-    private Rigidbody2D Rigidbody2D;
+     private Rigidbody2D Rigidbody2D;
+    public AudioClip HitSound;
 
     // Start is called before the first frame update
     void Start()
@@ -19,13 +19,14 @@ public class SpikeScript : MonoBehaviour
         
     }
 
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         JohnMovement john = other.GetComponent<JohnMovement>();
         if (john != null)
         {
+            Camera.main.GetComponent<AudioSource>().PlayOneShot(HitSound);
             john.Hit();
         }
     }
-    
 }

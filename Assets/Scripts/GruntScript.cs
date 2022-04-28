@@ -7,6 +7,7 @@ public class GruntScript : MonoBehaviour
     public Transform John;
     public GameObject BulletPrefab;
     public bool GruntisDead = false;
+    public AudioClip Sound;
     private int Health = 2;
     private float LastShoot;
 
@@ -38,7 +39,7 @@ public class GruntScript : MonoBehaviour
     {
         Health --;
         if (Health == 0) {
-            
+            Camera.main.GetComponent<AudioSource>().PlayOneShot(Sound);
             Destroy(gameObject);
         }
         

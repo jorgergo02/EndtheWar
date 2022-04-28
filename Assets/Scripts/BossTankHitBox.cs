@@ -2,30 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpikeScript : MonoBehaviour
+public class BossTankHitBox : MonoBehaviour
 {
-
-    private Rigidbody2D Rigidbody2D;
+    public PotinController bossCont;
 
     // Start is called before the first frame update
     void Start()
     {
-        Rigidbody2D = GetComponent<Rigidbody2D>();
+        
     }
-    
+
     // Update is called once per frame
     void Update()
     {
         
     }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        JohnMovement john = other.GetComponent<JohnMovement>();
-        if (john != null)
+        if(other.tag == "Bullet")
         {
-            john.Hit();
+            bossCont.TakeHit();
+
+            gameObject.SetActive(false);
         }
+        
     }
-    
 }

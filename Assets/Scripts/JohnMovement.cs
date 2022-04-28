@@ -9,6 +9,7 @@ public class JohnMovement : MonoBehaviour
 
     public float Speed;
     public float JumpForce;
+    public AudioClip HurtSound;
     public GameObject BulletPrefab;
     public bool isCrouched = false;
     public bool isDead = false;
@@ -125,17 +126,19 @@ public class JohnMovement : MonoBehaviour
     }
 
     public void Hit()
-    {
-        Health --;
-
-        if (Health <= 0) 
+    {   
+        if (isDead == false)
         {
-            //Animator.SetBool("dead", true);
-            //isDead = true;
-            StartCoroutine(Die());
-            //Destroy(gameObject);
-            //MainMenu.instance.StartGame();
+            Health --;
+            Camera.main.GetComponent<AudioSource>().PlayOneShot(HurtSound);
+            if (Health <= 0) 
+            {
+               StartCoroutine(Die());
+               //Destroy(gameObject);
+              //MainMenu.instance.StartGame();
+            }
         }
+        
 
         UIController.instance.UpdateHealthDisplay();
         
@@ -145,7 +148,6 @@ public class JohnMovement : MonoBehaviour
     {
         Animator.SetBool("dead", true);
         isDead = true;
-
         yield return new WaitForSeconds(1.5f);
 
         SceneManager.LoadScene(actualLevel);

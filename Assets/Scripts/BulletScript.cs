@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
+    public static BulletScript instance;
     public float Speed;
     public AudioClip Sound;
 
@@ -45,6 +46,7 @@ public class BulletScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        PotinController potin = other.GetComponent<PotinController>();
         GruntScript grunt = other.GetComponent<GruntScript>();
         JohnMovement john = other.GetComponent<JohnMovement>();
         if (grunt != null)
